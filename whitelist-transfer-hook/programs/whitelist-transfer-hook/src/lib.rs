@@ -17,7 +17,7 @@ use spl_transfer_hook_interface::{
 };
 use spl_tlv_account_resolution::state::ExtraAccountMetaList;
 
-declare_id!("DhzyDgCmmQzVC4vEcj2zRGUyN8Mt5JynfdGLKkBcRGaX");
+declare_id!("BrLWq9fh1yA266LQGgnUQBndYHY7FGpDoUhZ26dYZFW3");
 
 #[program]
 pub mod whitelist_transfer_hook {
