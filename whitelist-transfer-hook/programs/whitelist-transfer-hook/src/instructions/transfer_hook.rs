@@ -75,7 +75,7 @@ impl<'info> TransferHook<'info> {
         if self.whitelist.is_whitelisted == true {
             Ok(())
         }else {
-            panic!("TransferHook : Account in not whitelisted")
+            return  err!(MyError::Unauthorized);
         }
     }
 
