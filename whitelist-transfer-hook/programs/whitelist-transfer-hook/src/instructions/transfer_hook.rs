@@ -39,12 +39,8 @@ pub struct TransferHook<'info> {
     )]
     pub extra_account_meta_list: UncheckedAccount<'info>,
 
-    // user account whose PDA is gonna check 
-    /// CHECK : just an useraccount for creating PDA
-    pub user : AccountInfo<'info>,
-
     #[account(
-        seeds = [b"whitelist", destination_token.key().as_ref()], 
+        seeds = [b"whitelist", destination_token.owner.as_ref()], 
         bump = whitelist.bump,
     )]
     pub whitelist: Account<'info, Whitelist>,
