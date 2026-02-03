@@ -7,7 +7,8 @@ pub struct InitializeWhitelistPDA<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
     
-    // user account 
+    // user account
+    /// CHECK : just an useraccount for creating PDA
     pub user : AccountInfo<'info>,
 
     #[account(

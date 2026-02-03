@@ -38,11 +38,22 @@ pub struct TransferHook<'info> {
         bump
     )]
     pub extra_account_meta_list: UncheckedAccount<'info>,
+
+    // user account whose PDA is gonna check 
+    /// CHECK : just an useraccount for creating PDA
+    pub user : AccountInfo<'info>,
+
     #[account(
-        seeds = [b"whitelist"], 
+        seeds = [b"whitelist", user.key().as_ref()], 
         bump = whitelist.bump,
     )]
     pub whitelist: Account<'info, Whitelist>,
+}
+
+#[error_code]
+pub enum MyError {
+ #[msg("The user is not whitelisted")]
+    Unauthorized,
 }
 
 impl<'info> TransferHook<'info> {
@@ -50,18 +61,22 @@ impl<'info> TransferHook<'info> {
     pub fn transfer_hook(&mut self, _amount: u64) -> Result<()> {
         // Fail this instruction if it is not called from within a transfer hook
         
-        self.check_is_transferring()?;
+        // self.check_is_transferring()?;
 
-        msg!("Source token owner: {}", self.source_token.owner);
-        msg!("Destination token owner: {}", self.destination_token.owner);
+        // msg!("Source token owner: {}", self.source_token.owner);
+        // msg!("Destination token owner: {}", self.destination_token.owner);
 
-        if self.whitelist.address.contains(&self.source_token.owner) {
-            msg!("Transfer allowed: The address is whitelisted");
-        } else {
-            panic!("TransferHook: Address is not whitelisted");
+        // if self.whitelist.address.contains(&self.source_token.owner) {
+        //     msg!("Transfer allowed: The address is whitelisted");
+        // } else {
+        //     panic!("TransferHook: Address is not whitelisted");
+        // }
+
+        if self.whitelist.is_whitelisted == true {
+            Ok(())
+        }else {
+            panic!("TransferHook : Account in not whitelisted")
         }
-
-        Ok(())
     }
 
     /// Checks if the transfer hook is being executed during a transfer operation.
