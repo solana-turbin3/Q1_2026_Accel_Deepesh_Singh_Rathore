@@ -21,7 +21,7 @@ pub struct WhitelistPDA<'info> {
 }
 
 impl<'info> WhitelistPDA<'info> {
-    pub fn initialize_whitelist(&mut self, bumps: WhitelistPDABumps) -> Result<()> {
+    pub fn whitelist_pda(&mut self, bumps: WhitelistPDABumps) -> Result<()> {
         // Initialize the whitelist with an empty address vector
         self.whitelist.set_inner(Whitelist { 
             is_whitelisted : true,

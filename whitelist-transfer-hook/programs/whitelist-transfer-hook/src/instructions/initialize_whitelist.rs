@@ -14,7 +14,7 @@ pub struct InitializeWhitelistPDA<'info> {
     #[account(
         init,
         payer = admin,
-        space = 8 + 4 + 1, // 8 bytes for discriminator, 4 bytes for vector length, 1 byte for bump
+        space = 8+Whitelist::INIT_SPACE, 
         seeds = [b"whitelist", user.key().as_ref()],
         bump
     )]
@@ -26,10 +26,12 @@ impl<'info> InitializeWhitelistPDA<'info> {
     pub fn initialize_whitelist(&mut self, bumps: InitializeWhitelistPDABumps) -> Result<()> {
         // Initialize the whitelist with an empty address vector
         self.whitelist.set_inner(Whitelist { 
-            is_whitelisted : true,
+            is_whitelisted : false,
             bump: bumps.whitelist,
         });
 
         Ok(())
     }
+
+
 }
