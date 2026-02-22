@@ -1,0 +1,21 @@
+[toolchain]
+package_manager = "bun"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+transfer_hook_vault = "96T5f71BwzMcoc7B4oTyc77JPHFtQAdHi4G8ZzNdV89T"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+# "-- --nocapture" allows print statements to show in terminal
+# The fisrt "--" separates cargo args from test args
+test = "cargo test -- --nocapture" 
